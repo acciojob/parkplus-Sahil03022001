@@ -27,7 +27,7 @@ public class ReservationServiceImpl implements ReservationService {
         Optional<User> userOptional = userRepository3.findById(userId);
         Optional<ParkingLot> parkingLotOptional = parkingLotRepository3.findById(parkingLotId);
         if(!userOptional.isPresent() || !parkingLotOptional.isPresent()) {
-            return null;
+            throw new Exception("null");
         }
 
         User user = userOptional.get();
@@ -69,7 +69,7 @@ public class ReservationServiceImpl implements ReservationService {
         perfectSpot.getReservationList().add(reservation);
         user.getReservationList().add(reservation);
 
-        reservationRepository3.save(reservation);
+//        reservationRepository3.save(reservation);
 
         spotRepository3.save(perfectSpot);
         userRepository3.save(user);
