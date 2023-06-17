@@ -27,7 +27,7 @@ public class ReservationServiceImpl implements ReservationService {
         Optional<User> userOptional = userRepository3.findById(userId);
         Optional<ParkingLot> parkingLotOptional = parkingLotRepository3.findById(parkingLotId);
         if(!userOptional.isPresent() || !parkingLotOptional.isPresent()) {
-            throw new Exception("null");
+            throw new Exception("Cannot make reservation");
         }
 
         User user = userOptional.get();
@@ -57,7 +57,7 @@ public class ReservationServiceImpl implements ReservationService {
         }
 
         if(perfectSpot == null) {
-            throw new Exception("null");
+            throw new Exception("Cannot make reservation");
         }
 
         perfectSpot.setOccupied(true);
