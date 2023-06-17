@@ -24,14 +24,9 @@ public class ReservationServiceImpl implements ReservationService {
     ParkingLotRepository parkingLotRepository3;
     @Override
     public Reservation reserveSpot(Integer userId, Integer parkingLotId, Integer timeInHours, Integer numberOfWheels) throws Exception {
-        Optional<User> userOptional = userRepository3.findById(userId);
-        Optional<ParkingLot> parkingLotOptional = parkingLotRepository3.findById(parkingLotId);
-        if(!userOptional.isPresent() || !parkingLotOptional.isPresent()) {
-            throw new Exception("null");
-        }
 
-        User user = userOptional.get();
-        ParkingLot parkingLot = parkingLotOptional.get();
+        User user = userRepository3.findById(userId);
+        ParkingLot parkingLot = parkingLotRepository3.findById(parkingLotId);
 
         List<Spot> spotList = parkingLot.getSpotList();
         int minRate = Integer.MAX_VALUE;
@@ -57,7 +52,7 @@ public class ReservationServiceImpl implements ReservationService {
         }
 
         if(perfectSpot == null) {
-            throw new Exception("null");
+            return null;
         }
 
         perfectSpot.setOccupied(true);
