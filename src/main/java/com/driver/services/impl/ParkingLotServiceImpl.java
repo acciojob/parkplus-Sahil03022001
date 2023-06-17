@@ -58,31 +58,25 @@ public class ParkingLotServiceImpl implements ParkingLotService {
 
     @Override
     public void deleteSpot(int spotId) {
-        Optional<Spot> optionalSpot = spotRepository1.findById(spotId);
-        if(optionalSpot.isPresent()) {
-            spotRepository1.deleteById(spotId);
-        }
+        spotRepository1.deleteById(spotId);
     }
 
     @Override
     public Spot updateSpot(int parkingLotId, int spotId, int pricePerHour) {
-        Optional<ParkingLot> optionalParkingLot = parkingLotRepository1.findById(parkingLotId);
-        if(!optionalParkingLot.isPresent()) return null;
-
-        Optional<Spot> optionalSpot = spotRepository1.findById(spotId);
-        if(!optionalSpot.isPresent()) return null;
-
-        Spot spot = optionalSpot.get();
-        spot.setPricePerHour(pricePerHour);
-        parkingLotRepository1.save(optionalParkingLot.get());
+        ParkingLot parkingLot = parkingLotRepository1.findById(parkingLotId).get();
+        Spot spot = null;
+        for(Spot spot1 : parkingLot.getSpotList()) {
+            if(spotId == spot1.getId()) {
+                spot = spot1;
+                spot1.setPricePerHour(pricePerHour);
+                break;
+            }
+        }
         return spot;
     }
 
     @Override
     public void deleteParkingLot(int parkingLotId) {
-        Optional<ParkingLot> optionalParkingLot = parkingLotRepository1.findById(parkingLotId);
-        if(optionalParkingLot.isPresent()) {
-            parkingLotRepository1.deleteById(parkingLotId);
-        }
+        parkingLotRepository1.deleteById(parkingLotId);
     }
 }
