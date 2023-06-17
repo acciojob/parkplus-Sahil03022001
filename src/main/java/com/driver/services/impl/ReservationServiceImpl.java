@@ -57,7 +57,7 @@ public class ReservationServiceImpl implements ReservationService {
         }
 
         if(perfectSpot == null) {
-            throw new Exception("Cannot make reservation");
+            throw new Exception("null");
         }
 
         perfectSpot.setOccupied(true);
